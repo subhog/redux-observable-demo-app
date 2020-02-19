@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 
-import { TodoItem as TodoModel } from "@modules/todos/models";
+import { TodoItem as TodoModel, createTodo } from "@modules/todos/models";
 import { Request, RequestType, RequestState } from "@modules/common/requests";
 
 import { List } from "@material-ui/core";
@@ -76,15 +76,19 @@ export const withRequest = () => {
     RequestState.inProgress
   );
 
+  const item = createTodo({ text: "Change knob values" });
+
   return (
     <List>
       <TodoItem
         onCheckBoxToggle={action("checked")}
-        text="Hello World Todo Item"
-        request={{
-          ...request,
-          type: typeSelectKnob,
-          state: stateSelectKnob,
+        item={{
+          data: item,
+          request: {
+            type: typeSelectKnob,
+            state: stateSelectKnob,
+            payload: item,
+          },
         }}
       />
     </List>
