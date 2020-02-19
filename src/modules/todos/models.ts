@@ -14,8 +14,6 @@ export const createTodo = (data: TodoData): TodoItem => ({
   text: data.text,
 });
 
-export type TodoLoadingState = Request;
-
 export interface TodoStateItem {
   data: TodoItem;
   request: Request<TodoItem>;

@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@material-ui/core/Button";
-import MUDivider from "@material-ui/core/Divider";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import { CircularProgress, Typography } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 import styled, { ThemeProvider } from "styled-components";
 
@@ -14,6 +17,8 @@ import {
   TodoList,
   TodoState,
 } from "@modules/todos";
+
+import { actions as userActions, UserList, UsersState } from "@modules/users";
 
 import {
   RequestState as RS,
@@ -26,7 +31,7 @@ const theme = {
     black: "#000",
   },
   layout: {
-    width: 500,
+    width: 750,
   },
   spacing: 10,
 };
@@ -34,27 +39,28 @@ const theme = {
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
+  align-items: stretch;
   color: ${props => props.theme.color.black};
-`;
-
-const Content = styled.div`
-  width: ${props => props.theme.layout.width}px;
 `;
 
 const AddButton = styled(Button)`
   margin-top: ${props => props.theme.spacing}px;
 `;
 
-const Divider = styled(MUDivider)`
-  margin-top: ${props => props.theme.spacing}px;
-  margin-bottom: ${props => props.theme.spacing}px;
-`;
-
 const App: React.FC = () => {
   const [desc, setDesc] = useState("");
   const textRef = useRef<HTMLInputElement>();
-  const todosState = useSelector<AppState, TodoState>(state => state.todos);
-  const { entities, loading } = todosState;
+
+  const { entities: todos, loading: todosLoading } = useSelector<
+    AppState,
+    TodoState
+  >(state => state.todos);
+
+  const { entities: users, loading: usersLoading } = useSelector<
+    AppState,
+    UsersState
+  >(state => state.users);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -89,68 +95,85 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Wrap>
-        <Content>
-          <div>
-            <TextField
-              multiline
-              autoFocus
-              inputRef={textRef}
-              placeholder="Enter todo message"
-              rows="5"
-              variant="outlined"
-              onChange={onDescChange}
-              value={desc}
-              fullWidth
-            />
-            <AddButton
-              disabled={!desc}
-              color="primary"
-              variant="contained"
-              onClick={addNewTodo}
-              fullWidth
-            >
-              Add Todo
-            </AddButton>
-          </div>
+      <Container maxWidth="md">
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Paper style={{ padding: theme.spacing }}>
+                  <TextField
+                    multiline
+                    autoFocus
+                    inputRef={textRef}
+                    placeholder="Enter todo message"
+                    rows="5"
+                    variant="outlined"
+                    onChange={onDescChange}
+                    value={desc}
+                    fullWidth
+                  />
+                  <AddButton
+                    disabled={!desc}
+                    color="primary"
+                    variant="contained"
+                    onClick={addNewTodo}
+                    fullWidth
+                  >
+                    Add Todo
+                  </AddButton>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <div>
+                  {matchRequest(RT.read, RS.inProgress)(todosLoading) && (
+                    <Wrap>
+                      <CircularProgress />
+                    </Wrap>
+                  )}
 
-          <Divider />
+                  {matchRequest(RT.read, RS.error)(todosLoading) && (
+                    <Typography color="error">Failed to load todos</Typography>
+                  )}
 
-          <div>
-            {matchRequest(RT.read, RS.inProgress)(loading) && (
+                  {matchRequest(RT.read, RS.success)(todosLoading) && (
+                    <>
+                      <TodoList
+                        items={todos}
+                        onItemUpdate={updateTodo}
+                        onItemDelete={deleteTodo}
+                      />
+                    </>
+                  )}
+
+                  <Wrap>
+                    {matchRequest(RT.read, RS.inProgress)(todosLoading) ? (
+                      <Button onClick={onCancel} color="secondary">
+                        Cancel
+                      </Button>
+                    ) : (
+                      <Button onClick={onReset} color="primary">
+                        Reload
+                      </Button>
+                    )}
+                  </Wrap>
+                </div>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {matchRequest(RT.read, RS.inProgress)(usersLoading) && (
               <Wrap>
                 <CircularProgress />
               </Wrap>
             )}
-
-            {matchRequest(RT.read, RS.error)(loading) && (
-              <Typography color="error">Failed to load todos</Typography>
+            {matchRequest(RT.read, RS.success)(usersLoading) && (
+              <Wrap>
+                <UserList items={users} />
+              </Wrap>
             )}
-
-            {matchRequest(RT.read, RS.success)(loading) && (
-              <>
-                <TodoList
-                  items={entities}
-                  onItemUpdate={updateTodo}
-                  onItemDelete={deleteTodo}
-                />
-              </>
-            )}
-
-            <Wrap>
-              {matchRequest(RT.read, RS.inProgress)(loading) ? (
-                <Button onClick={onCancel} color="secondary">
-                  Cancel
-                </Button>
-              ) : (
-                <Button onClick={onReset} color="primary">
-                  Reload
-                </Button>
-              )}
-            </Wrap>
-          </div>
-        </Content>
-      </Wrap>
+          </Grid>
+        </Grid>
+      </Container>
     </ThemeProvider>
   );
 };

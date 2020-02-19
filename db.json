@@ -20,5 +20,43 @@
       "completed": false,
       "text": "Todo 8."
     }
+  ],
+  "users": [
+    {
+      "id": 0.3213123123123133,
+      "email": "vb@vb.com",
+      "firstName": "Vinko",
+      "lastName": "Bradvica",
+      "username": "vbradvica"
+    },
+    {
+      "id": 0.321312324343243,
+      "email": "np@np.com",
+      "firstName": "Nikola",
+      "lastName": "Predovan",
+      "username": "npredovan"
+    },
+    {
+      "id": 0.3122323423442,
+      "email": "hog@hog.com",
+      "firstName": "Hubert",
+      "lastName": "Orlik-Grzesik",
+      "username": "hubertOG"
+    },
+    {
+      "id": 0.5345233223243,
+      "email": "ma@ma.com",
+      "firstName": "Mike",
+      "lastName": "Arlington",
+      "username": "marlignton"
+    },
+    {
+      "id": 0.31234512423,
+      "email": "ser@ser.com",
+      "firstName": "Shah",
+      "lastName": "El-Rahman",
+      "username": "selrahman"
+    }
+
   ]
 }
