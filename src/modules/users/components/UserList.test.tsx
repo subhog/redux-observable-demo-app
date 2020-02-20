@@ -12,7 +12,6 @@ import UserItemComponent from "./UserItem";
 import { User, UserStateItem } from "../models";
 
 describe("TodoList", () => {
-
   const todos: User[] = [
     {
       id: 0.3213123123123133,
@@ -58,7 +57,7 @@ describe("TodoList", () => {
 
   const todoList = shallow(<UserList items={items} />);
 
-  it("renders 5 todos", () => {
+  it("renders 5 users", () => {
     expect(todoList.find(UserItemComponent)).toHaveLength(5);
   });
 
