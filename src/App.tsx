@@ -18,7 +18,7 @@ import {
   TodoState,
 } from "@modules/todos";
 
-import { actions as userActions, UserList, UsersState } from "@modules/users";
+import { UserList, UsersState } from "@modules/users";
 
 import {
   RequestState as RS,

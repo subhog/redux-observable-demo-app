@@ -1,5 +1,4 @@
-import { Item } from "@modules/common/models";
-import { Request } from "@modules/common/requests";
+import { Item, StateItem } from "@modules/common/models";
 
 export interface TodoData {
   text: string;
@@ -14,7 +13,4 @@ export const createTodo = (data: TodoData): TodoItem => ({
   text: data.text,
 });
 
-export interface TodoStateItem {
-  data: TodoItem;
-  request: Request<TodoItem>;
-}
+export type TodoStateItem = StateItem<TodoItem, TodoItem>;
