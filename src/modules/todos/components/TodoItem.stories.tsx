@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 
-import { TodoItem as TodoModel } from "@modules/todos/models";
+import { TodoItem as TodoModel, createTodo } from "@modules/todos/models";
 import { Request, RequestType, RequestState } from "@modules/common/requests";
 
 import { List } from "@material-ui/core";
@@ -29,15 +29,28 @@ export const withText = () => (
   <List>
     <TodoItem
       onCheckBoxToggle={action("checked")}
-      text="Hello World Todo Item"
-      request={request}
+      item={{
+        data: {
+          id: 0.3456,
+          text: "Hello World Todo Item",
+        },
+        request,
+      }}
     />
   </List>
 );
 
 export const withEmoji = () => (
   <List>
-    <TodoItem text="😀 😎 👍 💯" request={request} />
+    <TodoItem
+      item={{
+        data: {
+          id: 0.87654321,
+          text: "😀 😎 👍 💯",
+        },
+        request,
+      }}
+    />
   </List>
 );
 
@@ -63,15 +76,19 @@ export const withRequest = () => {
     RequestState.inProgress
   );
 
+  const item = createTodo({ text: "Hello world!" });
+
   return (
     <List>
       <TodoItem
         onCheckBoxToggle={action("checked")}
-        text="Hello World Todo Item"
-        request={{
-          ...request,
-          type: typeSelectKnob,
-          state: stateSelectKnob,
+        item={{
+          data: item,
+          request: {
+            payload: item,
+            type: typeSelectKnob,
+            state: stateSelectKnob,
+          },
         }}
       />
     </List>
