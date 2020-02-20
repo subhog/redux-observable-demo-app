@@ -13,7 +13,7 @@ export interface Props {
 const TodoList: React.FC<Props> = memo(props => (
   <>
     {props.items.length > 0 && (
-      <Paper style={{ margin: 16 }}>
+      <Paper>
         <List style={{ overflow: "scroll" }}>
           {props.items.map((todo, idx) => (
             <TodoListItem

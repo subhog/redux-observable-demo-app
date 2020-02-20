@@ -27,7 +27,7 @@ export interface Props {
 }
 
 const TodoText = styled(ListItemText)`
-  color: ${props => props.theme.color.black};
+  color: #000000;
 `;
 
 const TodoListItem: React.FC<Props> = memo(props => {

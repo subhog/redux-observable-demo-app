@@ -3,14 +3,13 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { createLogger } from "redux-logger";
 
-import {
-  epics as todosEpics,
-  reducer as todosReducer,
-  initialState as todosInitialState,
-} from "@modules/todos";
+import { epics as todosEpics, reducer as todosReducer } from "@modules/todos";
+
+import { epics as usersEpics, reducer as usersReducer } from "@modules/users";
 
 const reducer = combineReducers({
   todos: todosReducer,
+  users: usersReducer,
 });
 
 type CombinedState = ReturnType<typeof reducer>;
@@ -21,10 +20,6 @@ declare global {
   export type AppState = CombinedState;
 }
 
-export const initialState: AppState = {
-  todos: todosInitialState,
-};
-
 export function createStore() {
   const logger = createLogger();
   // Set state type explicitly to avoid redux-observable TS bug
@@ -33,7 +28,7 @@ export function createStore() {
     Action<unknown>,
     AppState
   >();
-  const rootEpic = combineEpics(todosEpics);
+  const rootEpic = combineEpics(todosEpics, usersEpics);
 
   const middleware = [...getDefaultMiddleware(), epicMiddleware, logger];
 

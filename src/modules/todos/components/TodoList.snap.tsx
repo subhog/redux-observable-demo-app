@@ -2,13 +2,7 @@
 
 exports[`TodoList matches snapshot 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(Paper))
-    style={
-      Object {
-        "margin": 16,
-      }
-    }
-  >
+  <WithStyles(ForwardRef(Paper))>
     <WithStyles(ForwardRef(List))
       style={
         Object {

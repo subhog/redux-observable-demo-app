@@ -76,7 +76,7 @@ export const withRequest = () => {
     RequestState.inProgress
   );
 
-  const item = createTodo({ text: "Hello world!" });
+  const item = createTodo({ text: "Change knob values" });
 
   return (
     <List>
@@ -85,9 +85,9 @@ export const withRequest = () => {
         item={{
           data: item,
           request: {
-            payload: item,
             type: typeSelectKnob,
             state: stateSelectKnob,
+            payload: item,
           },
         }}
       />
