@@ -12,8 +12,6 @@ import UserItemComponent from "./UserItem";
 import { User, UserStateItem } from "../models";
 
 describe("TodoList", () => {
-  const onItemDelete = jest.fn();
-  const onItemUpdate = jest.fn();
 
   const todos: User[] = [
     {
@@ -58,13 +56,7 @@ describe("TodoList", () => {
     request: createRequest(todo, RequestType.create, RequestState.success),
   }));
 
-  const todoList = shallow(
-    <UserList
-      items={items}
-      onItemDelete={onItemDelete}
-      onItemUpdate={onItemUpdate}
-    />
-  );
+  const todoList = shallow(<UserList items={items} />);
 
   it("renders 5 todos", () => {
     expect(todoList.find(UserItemComponent)).toHaveLength(5);
