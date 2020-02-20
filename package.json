@@ -87,8 +87,8 @@
     "src/**/*": [
       "prettier --write --check"
     ],
-    "src/**/*.{ts,tsx}": [
-      "eslint"
+    "public/**/*.json": [
+      "prettier --write --check"
     ]
   }
 }
