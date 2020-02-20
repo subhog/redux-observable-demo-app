@@ -11,10 +11,10 @@ export enum RequestType {
   delete = "delete",
 }
 
-export interface Request<TPayload = unknown> {
+export interface Request<Payload = unknown> {
   type: RequestType;
   state: RequestState;
-  payload: TPayload;
+  payload: Payload;
   error?: Error;
 }
 
@@ -30,27 +30,27 @@ export const matchRequest = (
 /**
  * Creates a request object with a payload of @TPayload type.
  * @typeparam Payload type parameter.
- * @param {TPayload} payload Payload of the request
+ * @param {Payload} payload Payload of the request
  * @param {RequestType} [type=RequestType.create] Type of created request. _Defaults to RequestType.create_
  * @param {RequestState} [state=RequestState.inProgress] Initial state of created request. _Defaults to RequestState.inProgress_
  */
-export const createRequest = <TPlayload>(
-  payload: TPlayload,
+export const createRequest = <Playload>(
+  payload: Playload,
   type: RequestType = RequestType.create,
   state: RequestState = RequestState.inProgress
-): Request<TPlayload> => ({
+): Request<Playload> => ({
   type,
   state,
   payload,
 });
 
-export const canUpdate = <TPayload>(
-  request: Request<TPayload>,
+export const canUpdate = <Payload>(
+  request: Request<Payload>,
   type?: RequestType
 ) => (request.state === RequestState.inProgress ? request.type === type : true);
 
-export const updateRequest = <TPayload>(
-  request: Request<TPayload>,
+export const updateRequest = <Payload>(
+  request: Request<Payload>,
   state: RequestState,
   type: RequestType,
   error?: string // Error object is not serializable so just use string
@@ -61,5 +61,5 @@ export const updateRequest = <TPayload>(
         state,
         error,
         type,
-      } as Request<TPayload>)
+      } as Request<Payload>)
     : request;

@@ -11,12 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 import styled, { ThemeProvider } from "styled-components";
 
-import {
-  actions as todoActions,
-  TodoItem,
-  TodoList,
-  TodoState,
-} from "@modules/todos";
+import { slice as todo, TodoItem, TodoList, TodoState } from "@modules/todos";
 
 import { UserList, UsersState } from "@modules/users";
 
@@ -68,17 +63,17 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   const addNewTodo = () => {
-    dispatch(todoActions.addTodo({ text: desc }));
+    dispatch(todo.actions.add({ text: desc }));
     setDesc("");
     return textRef.current?.focus();
   };
 
   const deleteTodo = (item: TodoItem) => {
-    dispatch(todoActions.removeTodo(item));
+    dispatch(todo.actions.remove(item));
   };
 
   const updateTodo = (item: TodoItem) => {
-    dispatch(todoActions.updateTodo(item));
+    dispatch(todo.actions.update(item));
   };
 
   const onDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,11 +81,11 @@ const App: React.FC = () => {
   };
 
   const onReset = () => {
-    dispatch(todoActions.reset());
+    dispatch(todo.actions.reset());
   };
 
   const onCancel = () => {
-    dispatch(todoActions.loadTodosCancel());
+    dispatch(todo.actions.loadCancel());
   };
 
   return (

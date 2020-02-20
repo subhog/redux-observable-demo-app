@@ -1,20 +1,20 @@
 import { Request } from "./requests";
 
-export interface Item<TId extends string | number> {
-  id: TId;
+export interface Item<Id extends string | number> {
+  id: Id;
 }
 
-type DataState<TData> = [TData] extends [never]
+type DataState<Data> = [Data] extends [never]
   ? never
   : {
-      data: TData;
+      data: Data;
     };
 
-type RequestState<TRequest> = [TRequest] extends [never]
+type RequestState<RequestPayload> = [RequestPayload] extends [never]
   ? never
   : {
-      request: Request<TRequest>;
+      request: Request<RequestPayload>;
     };
 
-export type StateItem<TData, TRequest> = DataState<TData> &
-  RequestState<TRequest>;
+export type StateItem<Data, RequestPayload> = DataState<Data> &
+  RequestState<RequestPayload>;

@@ -5,7 +5,8 @@ export interface TodoData {
   completed?: boolean;
 }
 
-export interface TodoItem extends TodoData, Item<number> {}
+export type TodoItem = TodoData & Item<number>;
+export type TodoStateItem = StateItem<TodoItem, TodoItem>;
 
 export const createTodo = (data: TodoData): TodoItem => ({
   id: Math.random(),
@@ -13,4 +14,3 @@ export const createTodo = (data: TodoData): TodoItem => ({
   text: data.text,
 });
 
-export type TodoStateItem = StateItem<TodoItem, TodoItem>;
