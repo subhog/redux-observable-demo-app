@@ -1,5 +1,4 @@
-import { Item } from "@modules/common/models";
-import { Request } from "@modules/common/requests";
+import { Item, StateItem } from "@modules/common/models";
 
 export interface UserData {
   firstName: string;
@@ -15,7 +14,4 @@ export const createUser = (data: UserData): User => ({
   ...data,
 });
 
-export interface UserStateItem {
-  data: User;
-  request: Request<User>;
-}
+export type UserStateItem = StateItem<User, User>;

@@ -10,7 +10,9 @@ import {
 import { feedbackFlag } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
-import { actions } from "./slice";
+import { slice } from "./slice";
+
+const { actions } = slice;
 
 const loadEpic: StateEpic<AppState> = state$ =>
   state$.pipe(

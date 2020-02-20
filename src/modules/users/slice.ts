@@ -8,7 +8,7 @@ import {
   updateRequest,
 } from "@modules/common/requests";
 
-import { UserStateItem, User } from "./models";
+import { User, UserStateItem } from "./models";
 
 export interface UsersState {
   loading: Request;
@@ -67,4 +67,4 @@ const slice = createSlice({
   },
 });
 
-export const { name, reducer, actions } = slice;
+export { slice };

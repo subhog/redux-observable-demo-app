@@ -24,7 +24,7 @@ const slice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    loadTodos(state: TodoState) {
+    load(state: TodoState) {
       state.loading = updateRequest(
         state.loading,
         RequestState.inProgress,
@@ -32,7 +32,7 @@ const slice = createSlice({
       );
     },
 
-    loadTodosDone(state: TodoState, action: PayloadAction<TodoItem[]>) {
+    loadDone(state: TodoState, action: PayloadAction<TodoItem[]>) {
       state.loading = updateRequest(
         state.loading,
         RequestState.success,
@@ -44,7 +44,7 @@ const slice = createSlice({
       }));
     },
 
-    loadTodosCancel(state: TodoState) {
+    loadCancel(state: TodoState) {
       state.loading = updateRequest(
         state.loading,
         RequestState.success,
@@ -52,7 +52,7 @@ const slice = createSlice({
       );
     },
 
-    loadTodosError(state: TodoState) {
+    loadError(state: TodoState) {
       state.loading = updateRequest(
         state.loading,
         RequestState.error,
@@ -60,7 +60,7 @@ const slice = createSlice({
       );
     },
 
-    addTodo(state: TodoState, action: PayloadAction<TodoData>) {
+    add(state: TodoState, action: PayloadAction<TodoData>) {
       const todo = createTodo(action.payload);
       state.entities.push({
         data: todo,
@@ -68,7 +68,7 @@ const slice = createSlice({
       });
     },
 
-    addTodoDone(state: TodoState, action: PayloadAction<TodoItem>) {
+    addDone(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities = state.entities.map(todo =>
         todo.data.id === action.payload.id
           ? {
@@ -83,7 +83,7 @@ const slice = createSlice({
       );
     },
 
-    addTodoError: {
+    addError: {
       prepare: (item: TodoItem, e) => ({ payload: item, error: e }),
       reducer: (state: TodoState, action: PayloadAction<TodoItem>) => {
         state.entities = state.entities.map(todo =>
@@ -101,7 +101,7 @@ const slice = createSlice({
       },
     },
 
-    removeTodo(state: TodoState, action: PayloadAction<TodoItem>) {
+    remove(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities = state.entities.map(todo =>
         todo.data.id === action.payload.id
           ? {
@@ -116,13 +116,13 @@ const slice = createSlice({
       );
     },
 
-    removeTodoDone(state: TodoState, action: PayloadAction<TodoItem>) {
+    removeDone(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities = state.entities.filter(
         todo => todo.data.id !== action.payload.id
       );
     },
 
-    removeTodoError: {
+    removeError: {
       prepare: (item, e) => ({ payload: { item, error: e } }),
       reducer: (
         state: TodoState,
@@ -144,7 +144,7 @@ const slice = createSlice({
       },
     },
 
-    updateTodo(state: TodoState, action: PayloadAction<TodoItem>) {
+    update(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities = state.entities.map(todo =>
         todo.data.id === action.payload.id
           ? {
@@ -159,7 +159,7 @@ const slice = createSlice({
       );
     },
 
-    updateTodoDone(state: TodoState, action: PayloadAction<TodoItem>) {
+    updateDone(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities = state.entities.map(todo =>
         todo.data.id === action.payload.id
           ? {
@@ -175,7 +175,7 @@ const slice = createSlice({
       );
     },
 
-    updateTodoError: {
+    updateError: {
       prepare: (item, error) => ({ payload: { item, error } }),
       reducer: (
         state: TodoState,
@@ -203,4 +203,4 @@ const slice = createSlice({
   },
 });
 
-export const { reducer, actions } = slice;
+export { slice };

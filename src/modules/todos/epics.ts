@@ -11,7 +11,9 @@ import {
 import { feedbackFlag, feedbackArray } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
-import { actions, TodoState } from "./slice";
+import { slice, TodoState } from "./slice";
+
+const { actions } = slice;
 
 const loadTodosEpic: StateEpic<AppState> = state$ =>
   state$.pipe(
@@ -21,8 +23,8 @@ const loadTodosEpic: StateEpic<AppState> = state$ =>
       () =>
         ajaxGet("http://localhost:5000/todos").pipe(
           retry(3),
-          map(request => actions.loadTodosDone(request.response)),
-          catchError(() => of(actions.loadTodosError()))
+          map(request => actions.loadDone(request.response)),
+          catchError(() => of(actions.loadError()))
         )
     )
   );
@@ -45,8 +47,8 @@ const updateTodoEpic: StateEpic<AppState> = state$ =>
           },
         }).pipe(
           retry(3),
-          map(() => actions.updateTodoDone(entity.request.payload)),
-          catchError(error => of(actions.updateTodoError(entity, error)))
+          map(() => actions.updateDone(entity.request.payload)),
+          catchError(error => of(actions.updateError(entity, error)))
         )
     )
   );
@@ -68,8 +70,8 @@ const addTodoEpic: StateEpic<AppState> = state$ =>
             "Content-Type": "application/json",
           },
         }).pipe(
-          map(() => actions.addTodoDone(entity.request.payload)),
-          catchError(error => of(actions.addTodoError(entity.data, error)))
+          map(() => actions.addDone(entity.request.payload)),
+          catchError(error => of(actions.addError(entity.data, error)))
         )
     )
   );
@@ -87,8 +89,8 @@ const removeTodoEpic: StateEpic<AppState> = state$ =>
           url: `http://localhost:5000/todos/${entity.data.id}`,
           method: "DELETE",
         }).pipe(
-          map(() => actions.removeTodoDone(entity.data)),
-          catchError(error => of(actions.removeTodoError(entity.data, error)))
+          map(() => actions.removeDone(entity.data)),
+          catchError(error => of(actions.removeError(entity.data, error)))
         )
     )
   );

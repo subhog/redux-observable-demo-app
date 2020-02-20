@@ -1,4 +1,20 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface Item<T extends any> {
-  id: T;
+import { Request } from "./requests";
+
+export interface Item<Id extends string | number> {
+  id: Id;
 }
+
+type DataState<Data> = [Data] extends [never]
+  ? never
+  : {
+      data: Data;
+    };
+
+type RequestState<RequestPayload> = [RequestPayload] extends [never]
+  ? never
+  : {
+      request: Request<RequestPayload>;
+    };
+
+export type StateItem<Data, RequestPayload> = DataState<Data> &
+  RequestState<RequestPayload>;
