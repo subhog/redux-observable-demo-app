@@ -84,14 +84,11 @@
     }
   },
   "lint-staged": {
-    "client/**/*": [
+    "src/**/*": [
       "prettier --write --check"
     ],
-    "client/**/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "eslint"
-    ],
-    "assets/**/*.json": [
-      "prettier --write --check"
     ]
   }
 }
