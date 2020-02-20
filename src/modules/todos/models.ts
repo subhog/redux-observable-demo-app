@@ -1,12 +1,12 @@
-import { Item } from "@modules/common/models";
-import { Request } from "@modules/common/requests";
+import { Item, StateItem } from "@modules/common/models";
 
 export interface TodoData {
   text: string;
   completed?: boolean;
 }
 
-export interface TodoItem extends TodoData, Item<number> {}
+export type TodoItem = TodoData & Item<number>;
+export type TodoStateItem = StateItem<TodoItem, TodoItem>;
 
 export const createTodo = (data: TodoData): TodoItem => ({
   id: Math.random(),
@@ -14,7 +14,3 @@ export const createTodo = (data: TodoData): TodoItem => ({
   text: data.text,
 });
 
-export interface TodoStateItem {
-  data: TodoItem;
-  request: Request<TodoItem>;
-}

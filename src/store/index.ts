@@ -3,13 +3,12 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { createLogger } from "redux-logger";
 
-import { epics as todosEpics, reducer as todosReducer } from "@modules/todos";
-
-import { epics as usersEpics, reducer as usersReducer } from "@modules/users";
+import { slice as todo, epics as todoEpics } from "@modules/todos";
+import { slice as user, epics as userEpics } from "@modules/users";
 
 const reducer = combineReducers({
-  todos: todosReducer,
-  users: usersReducer,
+  todos: todo.reducer,
+  users: user.reducer,
 });
 
 type CombinedState = ReturnType<typeof reducer>;
@@ -28,7 +27,7 @@ export function createStore() {
     Action<unknown>,
     AppState
   >();
-  const rootEpic = combineEpics(todosEpics, usersEpics);
+  const rootEpic = combineEpics(todoEpics, userEpics);
 
   const middleware = [...getDefaultMiddleware(), epicMiddleware, logger];
 
