@@ -88,9 +88,29 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="md">
-        <Grid container spacing={1}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Paper>
+                  {mR(RT.read, RS.inProgress)(usersLoading.request) && (
+                    <Wrap>
+                      <CircularProgress />
+                    </Wrap>
+                  )}
+                  {mR(RT.read, RS.success)(usersLoading.request) && (
+                    <Wrap>
+                      <UserList
+                        items={usersLoading.data.map(id => users[id])}
+                      />
+                    </Wrap>
+                  )}
+                </Paper>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Paper style={{ padding: theme.spacing }}>
                   <TextField
@@ -116,7 +136,7 @@ const App: React.FC = () => {
                 </Paper>
               </Grid>
               <Grid item xs={12}>
-                <div>
+                <Paper>
                   {mR(RT.read, RS.inProgress)(todosLoading.request) && (
                     <Wrap>
                       <CircularProgress />
@@ -128,41 +148,38 @@ const App: React.FC = () => {
                   )}
 
                   {mR(RT.read, RS.success)(todosLoading.request) && (
-                    <>
-                      <TodoList
-                        items={todosLoading.data.map(id => todos[id])}
-                        onItemUpdate={updateTodo}
-                        onItemDelete={deleteTodo}
-                      />
-                    </>
+                    <TodoList
+                      items={todosLoading.data.map(id => todos[id])}
+                      onItemUpdate={updateTodo}
+                      onItemDelete={deleteTodo}
+                    />
                   )}
-
-                  <Wrap>
-                    {mR(RT.read, RS.inProgress)(todosLoading.request) ? (
-                      <Button onClick={onCancel} color="secondary">
-                        Cancel
-                      </Button>
-                    ) : (
-                      <Button onClick={onReset} color="primary">
-                        Reload
-                      </Button>
-                    )}
-                  </Wrap>
-                </div>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Wrap>
+                  {mR(RT.read, RS.inProgress)(todosLoading.request) ? (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={onCancel}
+                      color="secondary"
+                    >
+                      Cancel
+                    </Button>
+                  ) : (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={onReset}
+                      color="primary"
+                    >
+                      Reload
+                    </Button>
+                  )}
+                </Wrap>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {mR(RT.read, RS.inProgress)(usersLoading.request) && (
-              <Wrap>
-                <CircularProgress />
-              </Wrap>
-            )}
-            {mR(RT.read, RS.success)(usersLoading.request) && (
-              <Wrap>
-                <UserList items={usersLoading.data.map(id => users[id])} />
-              </Wrap>
-            )}
           </Grid>
         </Grid>
       </Container>

@@ -38,6 +38,24 @@ describe("TodoList", () => {
     expect(todoList.find(TodoItemComponent)).toHaveLength(3);
   });
 
+  it("emits an event when delete clicked", () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    todoList
+      .find(TodoItemComponent)
+      .last()
+      .invoke("onDeleteButtonClick")!();
+    expect(onItemDelete.mock.calls.length).toEqual(1);
+  });
+
+  it("emits an event when delete clicked", () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    todoList
+      .find(TodoItemComponent)
+      .last()
+      .invoke("onCheckBoxToggle")!();
+    expect(onItemUpdate.mock.calls.length).toEqual(1);
+  });
+
   it("matches snapshot", () => {
     expect(todoList).toMatchSnapshot();
   });

@@ -30,10 +30,8 @@ const TodoText = styled(ListItemText)`
   color: #000000;
 `;
 
-const TodoListItem: React.FC<Props> = memo(props => {
-  const { item, divider, onDeleteButtonClick, onCheckBoxToggle } = props;
-
-  return (
+const TodoListItem: React.FC<Props> = memo(
+  ({ item, divider, onDeleteButtonClick, onCheckBoxToggle }) => (
     <ListItem divider={divider}>
       {matchRequest(RT.update, RS.inProgress)(item.request) ? (
         <CircularProgress size={42} color="secondary" />
@@ -50,7 +48,11 @@ const TodoListItem: React.FC<Props> = memo(props => {
 
       {!matchRequest(RT.delete, [RS.inProgress, RS.error])(item.request) ? (
         <ListItemSecondaryAction>
-          <IconButton aria-label="Delete Todo" onClick={onDeleteButtonClick}>
+          <IconButton
+            name="todo-delete"
+            aria-label="Delete Todo"
+            onClick={onDeleteButtonClick}
+          >
             <DeleteOutlined />
           </IconButton>
         </ListItemSecondaryAction>
@@ -58,7 +60,11 @@ const TodoListItem: React.FC<Props> = memo(props => {
 
       {matchRequest(RT.delete, RS.error)(item.request) ? (
         <ListItemSecondaryAction>
-          <IconButton aria-label="Retry Todo" onClick={onDeleteButtonClick}>
+          <IconButton
+            name="todo-delete-retry"
+            aria-label="Retry Todo"
+            onClick={onDeleteButtonClick}
+          >
             <RepeatRounded />
           </IconButton>
         </ListItemSecondaryAction>
@@ -70,7 +76,7 @@ const TodoListItem: React.FC<Props> = memo(props => {
         </ListItemSecondaryAction>
       ) : null}
     </ListItem>
-  );
-});
+  )
+);
 
 export default TodoListItem;

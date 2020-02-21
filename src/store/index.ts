@@ -29,7 +29,10 @@ export function createStore() {
   >();
   const rootEpic = combineEpics(todoEpics, userEpics);
 
-  const middleware = [...getDefaultMiddleware(), epicMiddleware, logger];
+  const middleware = [...getDefaultMiddleware(), epicMiddleware];
+  if (process.env.NODE_ENV === `development`) {
+    middleware.push(logger);
+  }
 
   const store = configureStore({
     reducer,

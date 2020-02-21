@@ -22,8 +22,9 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "jest",
+    "test": "jest --coverage",
     "test-watch": "jest --watch",
+    "test-watch-all": "jest --watchAll --coverage",
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 5000 --delay 5000",
     "format": "prettier --config ./.prettierrc.js --check 'src/**/*' 'assets/**/*.json' --write",

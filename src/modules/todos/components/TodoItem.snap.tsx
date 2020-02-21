@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList matches snapshot 1`] = `
+<WithStyles(ForwardRef(ListItem))>
+  <WithStyles(ForwardRef(Checkbox))
+    checked={false}
+    onClick={[MockFunction]}
+  />
+  <Styled(WithStyles(ForwardRef(ListItemText)))
+    primary="Todo 1"
+    secondary="Request create success"
+  />
+  <WithStyles(ForwardRef(ListItemSecondaryAction))>
+    <WithStyles(ForwardRef(IconButton))
+      aria-label="Delete Todo"
+      name="todo-delete"
+      onClick={[MockFunction]}
+    >
+      <DeleteOutlinedIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(ListItemSecondaryAction))>
+</WithStyles(ForwardRef(ListItem))>
+`;
