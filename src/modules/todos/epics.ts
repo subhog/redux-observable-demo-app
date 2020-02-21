@@ -19,7 +19,7 @@ const loadTodosEpic: StateEpic<AppState> = state$ =>
   state$.pipe(
     map(state => state.todos),
     feedbackFlag(
-      state => matchRequest(RT.read, RS.inProgress)(state.loading),
+      state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
         ajaxGet("http://localhost:5000/todos").pipe(
           retry(3),
@@ -34,7 +34,7 @@ const updateTodoEpic: StateEpic<AppState> = state$ =>
     map(state => state.todos),
     feedbackArray<TodoState, TodoStateItem>(
       state =>
-        state.entities.filter(entity =>
+        Object.values(state.entities).filter(entity =>
           matchRequest(RT.update, RS.inProgress)(entity.request)
         ),
       entity =>
@@ -58,7 +58,7 @@ const addTodoEpic: StateEpic<AppState> = state$ =>
     map(state => state.todos),
     feedbackArray<TodoState, TodoStateItem>(
       state =>
-        state.entities.filter(entity =>
+        Object.values(state.entities).filter(entity =>
           matchRequest(RT.create, RS.inProgress)(entity.request)
         ),
       entity =>
@@ -81,7 +81,7 @@ const removeTodoEpic: StateEpic<AppState> = state$ =>
     map(state => state.todos),
     feedbackArray<TodoState, TodoStateItem>(
       state =>
-        state.entities.filter(entity =>
+        Object.values(state.entities).filter(entity =>
           matchRequest(RT.delete, RS.inProgress)(entity.request)
         ),
       entity =>

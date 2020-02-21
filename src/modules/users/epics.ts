@@ -18,7 +18,7 @@ const loadEpic: StateEpic<AppState> = state$ =>
   state$.pipe(
     map(state => state.users),
     feedbackFlag(
-      state => matchRequest(RT.read, RS.inProgress)(state.loading),
+      state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
         ajaxGet("http://localhost:5000/users").pipe(
           retry(3),

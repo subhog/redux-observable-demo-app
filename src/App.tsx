@@ -15,7 +15,7 @@ import { UserList, UsersState } from "@modules/users";
 import {
   RequestState as RS,
   RequestType as RT,
-  matchRequest,
+  matchRequest as mR,
 } from "@modules/common/requests";
 
 const theme = {
@@ -117,20 +117,20 @@ const App: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <div>
-                  {matchRequest(RT.read, RS.inProgress)(todosLoading) && (
+                  {mR(RT.read, RS.inProgress)(todosLoading.request) && (
                     <Wrap>
                       <CircularProgress />
                     </Wrap>
                   )}
 
-                  {matchRequest(RT.read, RS.error)(todosLoading) && (
+                  {mR(RT.read, RS.error)(todosLoading.request) && (
                     <Typography color="error">Failed to load todos</Typography>
                   )}
 
-                  {matchRequest(RT.read, RS.success)(todosLoading) && (
+                  {mR(RT.read, RS.success)(todosLoading.request) && (
                     <>
                       <TodoList
-                        items={todos}
+                        items={todosLoading.data.map(id => todos[id])}
                         onItemUpdate={updateTodo}
                         onItemDelete={deleteTodo}
                       />
@@ -138,7 +138,7 @@ const App: React.FC = () => {
                   )}
 
                   <Wrap>
-                    {matchRequest(RT.read, RS.inProgress)(todosLoading) ? (
+                    {mR(RT.read, RS.inProgress)(todosLoading.request) ? (
                       <Button onClick={onCancel} color="secondary">
                         Cancel
                       </Button>
@@ -153,14 +153,14 @@ const App: React.FC = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6}>
-            {matchRequest(RT.read, RS.inProgress)(usersLoading) && (
+            {mR(RT.read, RS.inProgress)(usersLoading.request) && (
               <Wrap>
                 <CircularProgress />
               </Wrap>
             )}
-            {matchRequest(RT.read, RS.success)(usersLoading) && (
+            {mR(RT.read, RS.success)(usersLoading.request) && (
               <Wrap>
-                <UserList items={users} />
+                <UserList items={usersLoading.data.map(id => users[id])} />
               </Wrap>
             )}
           </Grid>

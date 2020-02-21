@@ -3,21 +3,28 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   RequestState,
   RequestType,
-  Request,
   createRequest,
   updateRequest,
 } from "@modules/common/requests";
+import { StateItem } from "@modules/common/models";
 
 import { User, UserStateItem } from "./models";
 
 export interface UsersState {
-  loading: Request;
-  entities: UserStateItem[];
+  loading: StateItem<number[], unknown>;
+  entities: Record<number, UserStateItem>;
 }
 
 export const initialState: UsersState = {
-  loading: createRequest(undefined, RequestType.read, RequestState.inProgress),
-  entities: [],
+  loading: {
+    data: [],
+    request: createRequest(
+      undefined,
+      RequestType.read,
+      RequestState.inProgress
+    ),
+  },
+  entities: {},
 };
 
 // State is wrapped with immer produce so it can be mutated but the end result will be immutable
@@ -26,36 +33,39 @@ const slice = createSlice({
   initialState,
   reducers: {
     load(state: UsersState) {
-      state.loading = updateRequest(
-        state.loading,
+      state.loading.request = updateRequest(
+        state.loading.request,
         RequestState.inProgress,
         RequestType.read
       );
     },
 
     loadDone(state: UsersState, action: PayloadAction<User[]>) {
-      state.loading = updateRequest(
-        state.loading,
+      state.loading.data = action.payload.map(item => item.id);
+      state.loading.request = updateRequest(
+        state.loading.request,
         RequestState.success,
         RequestType.read
       );
-      state.entities = action.payload.map(todo => ({
-        data: todo,
-        request: createRequest(todo, RequestType.read, RequestState.success),
-      }));
+      action.payload.forEach(user => {
+        state.entities[user.id] = {
+          data: user,
+          request: createRequest(user, RequestType.read, RequestState.success),
+        };
+      });
     },
 
     loadCancel(state: UsersState) {
-      state.loading = updateRequest(
-        state.loading,
+      state.loading.request = updateRequest(
+        state.loading.request,
         RequestState.success,
         RequestType.read
       );
     },
 
     loadError(state: UsersState) {
-      state.loading = updateRequest(
-        state.loading,
+      state.loading.request = updateRequest(
+        state.loading.request,
         RequestState.error,
         RequestType.read
       );
