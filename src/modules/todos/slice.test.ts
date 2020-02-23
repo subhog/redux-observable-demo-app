@@ -20,7 +20,7 @@ describe("todo slice", () => {
     });
 
     describe("loading", () => {
-      it("should start loading request on start", () => {
+      it(actions.load.type, () => {
         // Arrange
         const nextState = initialState;
 
@@ -37,7 +37,7 @@ describe("todo slice", () => {
         expect(result.loading.request.state).toEqual(RS.inProgress);
       });
 
-      it("correctly fills in entities after successful request", () => {
+      it(actions.loadDone.type, () => {
         // Arrange
         const payload = [
           {
@@ -76,7 +76,7 @@ describe("todo slice", () => {
         expect(request.state).toEqual(RS.success);
       });
 
-      it("correctly fills in error fields after request error", () => {
+      it(actions.loadError.type, () => {
         // Arrange
 
         // Act
@@ -85,6 +85,17 @@ describe("todo slice", () => {
         // Assert
         expect(result.loading.request.type).toEqual(RT.read);
         expect(result.loading.request.state).toEqual(RS.error);
+      });
+
+      it(actions.loadCancel.type, () => {
+        // Arrange
+
+        // Act
+        const result = reducer(initialState, actions.loadCancel());
+
+        // Assert
+        expect(result.loading.request.type).toEqual(RT.read);
+        expect(result.loading.request.state).toEqual(RS.success);
       });
     });
   });
