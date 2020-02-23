@@ -61,19 +61,25 @@ describe("todo slice", () => {
         const result = reducer(initialState, actions.loadDone(payload));
 
         // Assert
-        expect(result.loading.request.type).toEqual(RT.read);
-        expect(result.loading.request.state).toEqual(RS.success);
-        // payload
-        expect(Object.values(result.entities).length).toEqual(3);
-        expect(result.entities[payload[0].id]).toBeDefined();
-        const { data, request } = result.entities[payload[0].id];
-        // data
-        expect(data.id).toEqual(payload[0].id);
-        expect(data.text).toEqual(payload[0].text);
-        expect(data.completed).toEqual(payload[0].completed);
-        // request
-        expect(request.type).toEqual(RT.read);
-        expect(request.state).toEqual(RS.success);
+        const { loading, entities } = result;
+        expect(loading.request.type).toEqual(RT.read);
+        expect(loading.request.state).toEqual(RS.success);
+        expect(loading.data.length).toEqual(payload.length);
+        // entities payload
+        expect(Object.values(entities).length).toEqual(payload.length);
+
+        payload.forEach(item => {
+          expect(loading.data.indexOf(item.id)).not.toEqual(-1);
+          expect(entities[item.id]).not.toBeUndefined();
+
+          const { data, request } = entities[item.id];
+          expect(data.id).toEqual(item.id);
+          expect(data.text).toEqual(item.text);
+          expect(data.completed).toEqual(item.completed);
+          // request
+          expect(request.type).toEqual(RT.read);
+          expect(request.state).toEqual(RS.success);
+        });
       });
 
       it(actions.loadError.type, () => {
