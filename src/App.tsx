@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
 
@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import { slice as todo, TodoItem, TodoList, TodoState } from "@modules/todos";
-import { UserList, UsersState } from "@modules/users";
+import { UserList, UsersState, UserSelector } from "@modules/users";
 import {
   RequestState as RS,
   RequestType as RT,
@@ -41,6 +41,7 @@ const AddButton = styled(Button)`
 
 const App: React.FC = () => {
   const [desc, setDesc] = useState("");
+  const [user, setUser] = useState("");
   const textRef = useRef<HTMLInputElement>();
 
   const { entities: todos, loading: todosLoading } = useSelector<
@@ -55,12 +56,13 @@ const App: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // dispatch(todoActions.loadTodos());
-  }, [dispatch]);
-
   const addNewTodo = () => {
-    dispatch(todo.actions.add({ text: desc }));
+    dispatch(
+      todo.actions.add({
+        text: desc,
+        userId: parseFloat(user),
+      })
+    );
     setDesc("");
     return textRef.current?.focus();
   };
@@ -75,6 +77,10 @@ const App: React.FC = () => {
 
   const onDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDesc(e.target.value);
+  };
+
+  const onUserChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setUser(e.target.value as string);
   };
 
   const onReset = () => {
@@ -94,16 +100,10 @@ const App: React.FC = () => {
               <Grid item xs={12}>
                 <Paper>
                   {mR(RT.read, RS.inProgress)(usersLoading.request) && (
-                    <Wrap>
-                      <CircularProgress />
-                    </Wrap>
+                    <CircularProgress />
                   )}
                   {mR(RT.read, RS.success)(usersLoading.request) && (
-                    <Wrap>
-                      <UserList
-                        items={usersLoading.data.map(id => users[id])}
-                      />
-                    </Wrap>
+                    <UserList items={usersLoading.data.map(id => users[id])} />
                   )}
                 </Paper>
               </Grid>
@@ -124,6 +124,13 @@ const App: React.FC = () => {
                     value={desc}
                     fullWidth
                   />
+                  <div style={{ margin: "9px 0" }}>
+                    <UserSelector
+                      fullWidth
+                      value={user}
+                      onChange={onUserChange}
+                    />
+                  </div>
                   <AddButton
                     disabled={!desc}
                     color="primary"
@@ -149,6 +156,7 @@ const App: React.FC = () => {
 
                   {mR(RT.read, RS.success)(todosLoading.request) && (
                     <TodoList
+                      users={users}
                       items={todosLoading.data.map(id => todos[id])}
                       onItemUpdate={updateTodo}
                       onItemDelete={deleteTodo}

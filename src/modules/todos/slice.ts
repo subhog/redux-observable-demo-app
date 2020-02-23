@@ -1,30 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
-  RequestState,
-  RequestType,
+  RequestState as RS,
+  RequestType as RT,
   createRequest,
   updateRequest,
 } from "@modules/common/requests";
-import { StateItem } from "@modules/common/models";
+import { RequestState, DataState } from "@modules/common/models";
+import { User } from "@modules/users/models";
 
 import { TodoStateItem, TodoItem, TodoData, createTodo } from "./models";
 
 export interface TodoState {
-  loading: StateItem<number[], undefined>;
+  loading: DataState<number[]> & RequestState;
   entities: Record<number, TodoStateItem>;
 }
 
 export const initialState: TodoState = {
   loading: {
     data: [],
-    request: createRequest(
-      undefined,
-      RequestType.read,
-      RequestState.inProgress
-    ),
+    request: createRequest(undefined, RT.read, RS.inProgress),
   },
   entities: {},
+};
+
+const removeUser = (item: TodoItem & { user?: User }) => {
+  const { user, ...todo } = item;
+  return todo as TodoItem;
 };
 
 // State is wrapped with immer produce so it can be mutated but the end result will be immutable
@@ -35,39 +37,42 @@ const slice = createSlice({
     load(state: TodoState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.inProgress,
-        RequestType.read
+        RS.inProgress,
+        RT.read
       );
     },
 
-    loadDone(state: TodoState, action: PayloadAction<TodoItem[]>) {
+    loadDone(
+      state: TodoState,
+      action: PayloadAction<(TodoItem & { user?: User })[]>
+    ) {
       state.loading.data = action.payload.map(item => item.id);
-      state.loading.request = updateRequest(
-        state.loading.request,
-        RequestState.success,
-        RequestType.read
-      );
       action.payload.forEach(todo => {
         state.entities[todo.id] = {
-          data: todo,
-          request: createRequest(todo, RequestType.read, RequestState.success),
+          data: removeUser(todo),
+          request: createRequest(todo, RT.read, RS.success),
         };
       });
+      state.loading.request = updateRequest(
+        state.loading.request,
+        RS.success,
+        RT.read
+      );
     },
 
     loadCancel(state: TodoState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.success,
-        RequestType.read
+        RS.success,
+        RT.read
       );
     },
 
     loadError(state: TodoState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.error,
-        RequestType.read
+        RS.error,
+        RT.read
       );
     },
 
@@ -84,8 +89,8 @@ const slice = createSlice({
       state.entities[action.payload.id].data = action.payload;
       state.entities[action.payload.id].request = updateRequest(
         state.entities[action.payload.id].request,
-        RequestState.success,
-        RequestType.create
+        RS.success,
+        RT.create
       );
     },
 
@@ -97,8 +102,8 @@ const slice = createSlice({
       ) => {
         state.entities[action.payload.item.id].request = updateRequest(
           state.entities[action.payload.item.id].request,
-          RequestState.error,
-          RequestType.create
+          RS.error,
+          RT.create
         );
       },
     },
@@ -106,8 +111,8 @@ const slice = createSlice({
     remove(state: TodoState, action: PayloadAction<TodoItem>) {
       state.entities[action.payload.id].request = updateRequest(
         state.entities[action.payload.id].request,
-        RequestState.inProgress,
-        RequestType.delete
+        RS.inProgress,
+        RT.delete
       );
     },
 
@@ -129,8 +134,8 @@ const slice = createSlice({
       ) => {
         state.entities[action.payload.item.id].request = updateRequest(
           state.entities[action.payload.item.id].request,
-          RequestState.error,
-          RequestType.delete,
+          RS.error,
+          RT.delete,
           action.payload.error.message
         );
       },
@@ -142,8 +147,8 @@ const slice = createSlice({
           ...state.entities[action.payload.id].request,
           payload: action.payload,
         },
-        RequestState.inProgress,
-        RequestType.update
+        RS.inProgress,
+        RT.update
       );
     },
 
@@ -154,8 +159,8 @@ const slice = createSlice({
           ...state.entities[action.payload.id].request,
           payload: action.payload,
         },
-        RequestState.success,
-        RequestType.update
+        RS.success,
+        RT.update
       );
     },
 
@@ -167,8 +172,8 @@ const slice = createSlice({
       ) => {
         state.entities[action.payload.item.id].request = updateRequest(
           state.entities[action.payload.item.id].request,
-          RequestState.error,
-          RequestType.update,
+          RS.error,
+          RT.update,
           action.payload.error.message
         );
       },

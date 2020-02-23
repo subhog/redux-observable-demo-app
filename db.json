@@ -3,17 +3,38 @@
     {
       "id": 0.30673463111541177,
       "completed": true,
-      "text": "Todo 3."
+      "text": "Todo 3.",
+      "userId": 0.3213123123123133
     },
     {
       "id": 0.22126505210584257,
       "completed": true,
-      "text": "Todo 4."
+      "text": "Todo 4.",
+      "userId": 0.3213123123123133
     },
     {
       "id": 0.5823614201227101,
+      "completed": true,
+      "text": "Todo 8.",
+      "userId": 0.3213123123123133
+    },
+    {
+      "id": 0.48870316055208995,
       "completed": false,
-      "text": "Todo 8."
+      "text": "Novi zadatak za Nikolu",
+      "userId": 0.321312324343243
+    },
+    {
+      "id": 0.11782516112074903,
+      "completed": false,
+      "text": "Novi",
+      "userId": 0.3213123123123133
+    },
+    {
+      "id": 0.1297606508398006,
+      "completed": false,
+      "text": "Is this correct?",
+      "userId": 0.3213123123123133
     }
   ],
   "users": [

@@ -8,7 +8,11 @@ exports[`TodoList matches snapshot 1`] = `
   />
   <Styled(WithStyles(ForwardRef(ListItemText)))
     primary="Todo 1"
-    secondary="Request create success"
+    secondary={
+      <React.Fragment>
+        Request create success
+      </React.Fragment>
+    }
   />
   <WithStyles(ForwardRef(ListItemSecondaryAction))>
     <WithStyles(ForwardRef(IconButton))

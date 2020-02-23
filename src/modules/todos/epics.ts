@@ -10,8 +10,7 @@ import {
 } from "@modules/common/requests";
 import { feedbackFlag, feedbackArray } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
-
-import { slice, TodoState } from "./slice";
+import { slice, TodoState } from "@modules/todos/slice";
 
 const { actions } = slice;
 
@@ -21,7 +20,7 @@ const loadTodosEpic: StateEpic<AppState> = state$ =>
     feedbackFlag(
       state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
-        ajaxGet("http://localhost:5000/todos").pipe(
+        ajaxGet("http://localhost:5000/todos?_expand=user").pipe(
           retry(3),
           map(request => actions.loadDone(request.response)),
           catchError(() => of(actions.loadError()))

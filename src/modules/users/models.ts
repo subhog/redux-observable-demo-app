@@ -1,4 +1,4 @@
-import { Item, StateItem } from "@modules/common/models";
+import { Item, DataState, RequestState } from "@modules/common/models";
 
 export interface UserData {
   firstName: string;
@@ -7,11 +7,11 @@ export interface UserData {
   email: string;
 }
 
-export interface User extends UserData, Item<number> {}
+export type User = UserData & Item<number>;
 
 export const createUser = (data: UserData): User => ({
   id: Math.random(),
   ...data,
 });
 
-export type UserStateItem = StateItem<User, User>;
+export type UserStateItem = DataState<User> & RequestState<User>;
