@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TodoList matches snapshot 1`] = `
+exports[`TodoItem matches snapshot 1`] = `
 <WithStyles(ForwardRef(ListItem))>
   <WithStyles(ForwardRef(Checkbox))
     checked={false}

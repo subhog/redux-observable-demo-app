@@ -11,7 +11,7 @@ import UserList from "./UserList";
 import UserItemComponent from "./UserItem";
 import { User, UserStateItem } from "../models";
 
-describe("TodoList", () => {
+describe("UserList", () => {
   const todos: User[] = [
     {
       id: 0.3213123123123133,
@@ -55,6 +55,7 @@ describe("TodoList", () => {
     request: createRequest(todo, RequestType.create, RequestState.success),
   }));
 
+  // Shallow for unit tests
   const todoList = shallow(<UserList items={items} />);
 
   it("renders 5 users", () => {
