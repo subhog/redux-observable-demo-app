@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import {
@@ -48,6 +49,7 @@ const useStyles = makeStyles(theme => ({
 const TodoListItem: React.FC<Props> = memo(
   ({ item, user, divider, onDeleteButtonClick, onCheckBoxToggle }) => {
     const classes = useStyles();
+    const match = useRouteMatch("/users/:userId");
     return (
       <ListItem divider={divider}>
         {matchRequest(RT.update, RS.inProgress)(item.request) ? (
@@ -61,14 +63,18 @@ const TodoListItem: React.FC<Props> = memo(
           secondary={
             <>
               {user && (
-                <Typography
-                  component="span"
-                  variant="body1"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  {`${user.data.firstName} ${user.data.lastName} - `}
-                </Typography>
+                <>
+                  <Typography
+                    component={match ? "span" : Link}
+                    to={`/users/${user.data.id}`}
+                    variant="body1"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    {`${user.data.firstName} ${user.data.lastName}`}
+                  </Typography>
+                  {" - "}
+                </>
               )}
               {item.request &&
                 `Request ${item.request.type} ${item.request.state}`}

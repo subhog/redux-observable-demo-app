@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { List } from "@material-ui/core";
+import { List, Typography } from "@material-ui/core";
 
 import { TodoItem, TodoStateItem } from "@modules/todos/models";
 import { UserStateItem } from "@modules/users";
@@ -34,6 +34,11 @@ const TodoList: React.FC<Props> = memo(
             />
           ))}
         </List>
+      )}
+      {items.length === 0 && (
+        <Typography style={{ padding: "16px" }}>
+          No items found for this user.
+        </Typography>
       )}
     </>
   )

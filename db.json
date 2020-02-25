@@ -13,28 +13,22 @@
       "userId": 0.3213123123123133
     },
     {
-      "id": 0.5823614201227101,
-      "completed": true,
-      "text": "Todo 8.",
-      "userId": 0.3213123123123133
+      "id": 0.7421397306995159,
+      "completed": false,
+      "text": "Shah's Item",
+      "userId": 0.31234512423
     },
     {
-      "id": 0.48870316055208995,
+      "id": 0.9674089450617163,
       "completed": false,
-      "text": "Novi zadatak za Nikolu",
+      "text": "Nikola's Item",
       "userId": 0.321312324343243
     },
     {
-      "id": 0.11782516112074903,
+      "id": 0.27654708019540863,
       "completed": false,
-      "text": "Novi",
-      "userId": 0.3213123123123133
-    },
-    {
-      "id": 0.1297606508398006,
-      "completed": false,
-      "text": "Is this correct?",
-      "userId": 0.3213123123123133
+      "text": "Hubert's Item",
+      "userId": 0.3122323423442
     }
   ],
   "users": [

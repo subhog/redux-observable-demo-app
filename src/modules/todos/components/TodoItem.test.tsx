@@ -1,5 +1,6 @@
 import { shallow } from "enzyme";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import {
   createRequest,
@@ -22,11 +23,13 @@ describe("TodoItem", () => {
 
   // Shallow for unit tests
   const todo = shallow(
-    <TodoItemComponent
-      item={item}
-      onCheckBoxToggle={onItemUpdate}
-      onDeleteButtonClick={onItemDelete}
-    />
+    <MemoryRouter initialEntries={["/"]} initialIndex={0}>
+      <TodoItemComponent
+        item={item}
+        onCheckBoxToggle={onItemUpdate}
+        onDeleteButtonClick={onItemDelete}
+      />
+    </MemoryRouter>
   );
 
   it("matches snapshot", () => {

@@ -33,9 +33,7 @@ type SelectUserParamsType = {
 const SelectUser = ({ fullWidth, value, onChange }: SelectUserParamsType) => {
   const classes = useStyles();
 
-  const { entities, loading } = useSelector<AppState, UsersState>(
-    state => state.users
-  );
+  const { entities } = useSelector<AppState, UsersState>(state => state.users);
 
   return (
     <FormControl fullWidth={fullWidth} className={classes.formControl}>

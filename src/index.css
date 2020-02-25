@@ -6,6 +6,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* pantone baby-blue */
   background-color: rgba(182, 199, 211, 0.4);
+  margin: 0;
+  padding: 16px;
 }
 
 code {

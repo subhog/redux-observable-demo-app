@@ -1,11 +1,13 @@
 import { shallow, mount } from "enzyme";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import {
   createRequest,
   RequestType,
   RequestState,
 } from "@modules/common/requests";
+import { UserStateItem } from "@modules/users/models";
 
 import TodoList from "./TodoList";
 import TodoItemComponent from "./TodoItem";
@@ -16,10 +18,28 @@ describe("TodoList", () => {
   const onItemUpdate = jest.fn();
 
   const todos: TodoItem[] = [
-    { id: 1, text: "Todo 1", completed: false },
-    { id: 2, text: "Todo 2", completed: false },
-    { id: 3, text: "Todo 3", completed: false },
+    { id: 1, text: "Todo 1", completed: false, userId: 0 },
+    { id: 2, text: "Todo 2", completed: false, userId: 0 },
+    { id: 3, text: "Todo 3", completed: false, userId: 0 },
   ];
+
+  const jdoe = {
+    id: 0,
+    username: "jdoe",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john@doe.com",
+  };
+  const users: Record<number, UserStateItem> = {
+    [jdoe.id]: {
+      data: jdoe,
+      request: {
+        type: RequestType.read,
+        state: RequestState.success,
+        payload: jdoe,
+      },
+    },
+  };
 
   const items: TodoStateItem[] = todos.map(todo => ({
     data: todo,
@@ -29,6 +49,7 @@ describe("TodoList", () => {
   // Shallow for unit tests
   const shallowTodoList = shallow(
     <TodoList
+      users={users}
       items={items}
       onItemDelete={onItemDelete}
       onItemUpdate={onItemUpdate}
@@ -37,11 +58,14 @@ describe("TodoList", () => {
 
   // Mount for integration tests
   const mountedTodoList = mount(
-    <TodoList
-      items={items}
-      onItemDelete={onItemDelete}
-      onItemUpdate={onItemUpdate}
-    />
+    <MemoryRouter initialEntries={["/"]} initialIndex={0}>
+      <TodoList
+        users={users}
+        items={items}
+        onItemDelete={onItemDelete}
+        onItemUpdate={onItemUpdate}
+      />
+    </MemoryRouter>
   );
 
   it("renders 3 todos", () => {

@@ -1,13 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, useParams } from "react-router-dom";
+import { Switch, Route, Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 import { slice as todo, TodoState, TodoList, TodoItem } from "@modules/todos";
 import {
@@ -18,6 +21,7 @@ import {
 
 import { UsersState } from "../slice";
 import UserList from "../components/UserList";
+import User from "../components/User";
 
 const Wrap = styled.div`
   display: flex;
@@ -55,16 +59,33 @@ const Users = () => {
             <Grid item xs={12}>
               <Paper>
                 {mR(RT.read, RS.inProgress)(usersLoading.request) && (
-                  <CircularProgress />
+                  <Wrap>
+                    <CircularProgress />
+                  </Wrap>
                 )}
                 <Switch>
                   <Route path="/users/:userId">
-                    <User user={users[userId]} />
+                    <Button
+                      style={{ margin: "8px" }}
+                      to="/users"
+                      component={Link}
+                      startIcon={<ChevronLeftIcon />}
+                    >
+                      users
+                    </Button>
+                    <User user={users[parseFloat(userId)]} />
                   </Route>
                   <Route exact path="/users">
+                    <Button
+                      style={{ margin: "8px" }}
+                      to="/"
+                      component={Link}
+                      startIcon={<ChevronLeftIcon />}
+                    >
+                      todos
+                    </Button>
                     {mR(RT.read, RS.success)(usersLoading.request) && (
                       <UserList
-                        selectedUserId={userId}
                         items={usersLoading.data.map(id => users[id])}
                       />
                     )}
@@ -91,9 +112,15 @@ const Users = () => {
                 {mR(RT.read, RS.success)(todosLoading.request) && (
                   <TodoList
                     users={users}
-                    items={Object.values(todos).filter(
-                      t => t.data.userId && t.data.userId.toString() === userId
-                    )}
+                    items={
+                      userId
+                        ? Object.values(todos).filter(
+                            t =>
+                              t.data.userId &&
+                              t.data.userId.toString() === userId
+                          )
+                        : todosLoading.data.map(t => todos[t])
+                    }
                     onItemUpdate={updateTodo}
                     onItemDelete={deleteTodo}
                   />

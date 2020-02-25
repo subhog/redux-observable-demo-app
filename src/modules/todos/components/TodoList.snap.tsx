@@ -17,12 +17,14 @@ exports[`TodoList matches snapshot 1`] = `
             "completed": false,
             "id": 1,
             "text": "Todo 1",
+            "userId": 0,
           },
           "request": Object {
             "payload": Object {
               "completed": false,
               "id": 1,
               "text": "Todo 1",
+              "userId": 0,
             },
             "state": "success",
             "type": "create",
@@ -41,12 +43,14 @@ exports[`TodoList matches snapshot 1`] = `
             "completed": false,
             "id": 2,
             "text": "Todo 2",
+            "userId": 0,
           },
           "request": Object {
             "payload": Object {
               "completed": false,
               "id": 2,
               "text": "Todo 2",
+              "userId": 0,
             },
             "state": "success",
             "type": "create",
@@ -65,12 +69,14 @@ exports[`TodoList matches snapshot 1`] = `
             "completed": false,
             "id": 3,
             "text": "Todo 3",
+            "userId": 0,
           },
           "request": Object {
             "payload": Object {
               "completed": false,
               "id": 3,
               "text": "Todo 3",
+              "userId": 0,
             },
             "state": "success",
             "type": "create",

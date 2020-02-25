@@ -1,27 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TodoItem matches snapshot 1`] = `
-<WithStyles(ForwardRef(ListItem))>
-  <WithStyles(ForwardRef(Checkbox))
-    checked={false}
-    onClick={[MockFunction]}
-  />
-  <Styled(WithStyles(ForwardRef(ListItemText)))
-    primary="Todo 1"
-    secondary={
-      <React.Fragment>
-        Request create success
-      </React.Fragment>
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "canGo": [Function],
+      "createHref": [Function],
+      "entries": Array [
+        Object {
+          "hash": "",
+          "key": "hbis84",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+      ],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "index": 0,
+      "length": 1,
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "key": "hbis84",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      "push": [Function],
+      "replace": [Function],
     }
+  }
+>
+  <Memo()
+    item={
+      Object {
+        "data": Object {
+          "completed": false,
+          "id": 1,
+          "text": "Todo 1",
+        },
+        "request": Object {
+          "payload": Object {
+            "completed": false,
+            "id": 1,
+            "text": "Todo 1",
+          },
+          "state": "success",
+          "type": "create",
+        },
+      }
+    }
+    onCheckBoxToggle={[MockFunction]}
+    onDeleteButtonClick={[MockFunction]}
   />
-  <WithStyles(ForwardRef(ListItemSecondaryAction))>
-    <WithStyles(ForwardRef(IconButton))
-      aria-label="Delete Todo"
-      name="todo-delete"
-      onClick={[MockFunction]}
-    >
-      <DeleteOutlinedIcon />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(ListItemSecondaryAction))>
-</WithStyles(ForwardRef(ListItem))>
+</Router>
 `;
