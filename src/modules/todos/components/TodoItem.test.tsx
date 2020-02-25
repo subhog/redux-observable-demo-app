@@ -10,7 +10,7 @@ import {
 import TodoItemComponent from "./TodoItem";
 import { TodoItem, TodoStateItem } from "../models";
 
-describe("TodoList", () => {
+describe("TodoItem", () => {
   const onItemDelete = jest.fn();
   const onItemUpdate = jest.fn();
 
@@ -20,6 +20,7 @@ describe("TodoList", () => {
     request: createRequest(todoItem, RequestType.create, RequestState.success),
   };
 
+  // Shallow for unit tests
   const todo = shallow(
     <TodoItemComponent
       item={item}
