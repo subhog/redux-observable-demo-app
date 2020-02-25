@@ -23,7 +23,15 @@ describe("TodoItem", () => {
 
   // Shallow for unit tests
   const todo = shallow(
-    <MemoryRouter initialEntries={["/"]} initialIndex={0}>
+    <MemoryRouter
+      initialEntries={[
+        {
+          pathname: "/",
+          key: "root-key",
+        },
+      ]}
+      initialIndex={0}
+    >
       <TodoItemComponent
         item={item}
         onCheckBoxToggle={onItemUpdate}

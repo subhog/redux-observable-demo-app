@@ -58,7 +58,15 @@ describe("TodoList", () => {
 
   // Mount for integration tests
   const mountedTodoList = mount(
-    <MemoryRouter initialEntries={["/"]} initialIndex={0}>
+    <MemoryRouter
+      initialEntries={[
+        {
+          pathname: "/",
+          key: "root-key",
+        },
+      ]}
+      initialIndex={0}
+    >
       <TodoList
         users={users}
         items={items}

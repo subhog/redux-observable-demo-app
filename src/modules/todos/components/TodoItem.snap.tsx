@@ -11,10 +11,9 @@ exports[`TodoItem matches snapshot 1`] = `
       "entries": Array [
         Object {
           "hash": "",
-          "key": "hbis84",
+          "key": "root-key",
           "pathname": "/",
           "search": "",
-          "state": undefined,
         },
       ],
       "go": [Function],
@@ -25,10 +24,9 @@ exports[`TodoItem matches snapshot 1`] = `
       "listen": [Function],
       "location": Object {
         "hash": "",
-        "key": "hbis84",
+        "key": "root-key",
         "pathname": "/",
         "search": "",
-        "state": undefined,
       },
       "push": [Function],
       "replace": [Function],
