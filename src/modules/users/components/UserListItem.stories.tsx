@@ -4,11 +4,11 @@ import { User as UserModel } from "@modules/users/models";
 import { Request, RequestType, RequestState } from "@modules/common/requests";
 
 import { List } from "@material-ui/core";
-import UserItem from "./UserItem";
+import UserListItem from "./UserListItem";
 
 export default {
   title: "UserItem",
-  component: UserItem,
+  component: UserListItem,
 };
 
 const request: Request<UserModel> = {
@@ -25,7 +25,7 @@ const request: Request<UserModel> = {
 
 export const withText = () => (
   <List>
-    <UserItem
+    <UserListItem
       item={{
         data: {
           id: 0.23123123123312,

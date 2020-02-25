@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-type UserSelectorParamsType = {
+type SelectUserParamsType = {
   fullWidth: boolean;
   value?: string;
   onChange?: (
@@ -30,11 +30,7 @@ type UserSelectorParamsType = {
   ) => void;
 };
 
-const UserSelector = ({
-  fullWidth,
-  value,
-  onChange,
-}: UserSelectorParamsType) => {
+const SelectUser = ({ fullWidth, value, onChange }: SelectUserParamsType) => {
   const classes = useStyles();
 
   const { entities, loading } = useSelector<AppState, UsersState>(
@@ -60,4 +56,4 @@ const UserSelector = ({
   );
 };
 
-export default UserSelector;
+export default SelectUser;

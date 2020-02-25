@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import { slice as todo, TodoItem, TodoList, TodoState } from "@modules/todos";
-import { UserList, UsersState, UserSelector } from "@modules/users";
+import { UserView, UserList, UsersState, SelectUser } from "@modules/users";
 import {
   RequestState as RS,
   RequestType as RT,
@@ -125,7 +125,7 @@ const App: React.FC = () => {
                     fullWidth
                   />
                   <div style={{ margin: "9px 0" }}>
-                    <UserSelector
+                    <SelectUser
                       fullWidth
                       value={user}
                       onChange={onUserChange}

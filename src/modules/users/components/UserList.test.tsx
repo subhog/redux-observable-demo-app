@@ -8,7 +8,7 @@ import {
 } from "@modules/common/requests";
 
 import UserList from "./UserList";
-import UserItemComponent from "./UserItem";
+import UserItemComponent from "./UserListItem";
 import { User, UserStateItem } from "../models";
 
 describe("UserList", () => {

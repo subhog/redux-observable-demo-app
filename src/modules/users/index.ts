@@ -3,5 +3,6 @@ export * from "./models";
 
 export { default as epics } from "./epics";
 
+export { default as UserView } from "./components/User";
 export { default as UserList } from "./components/UserList";
-export { default as UserSelector } from "./components/UserSelector";
+export { default as SelectUser } from "./components/SelectUser";

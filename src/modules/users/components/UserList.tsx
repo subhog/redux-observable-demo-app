@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
-import UserListItem from "./UserItem";
+import UserListItem from "./UserListItem";
 import { UserStateItem } from "../models";
 
 export interface Props {
