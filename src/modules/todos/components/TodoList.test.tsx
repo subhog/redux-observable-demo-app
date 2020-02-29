@@ -3,8 +3,8 @@ import React from "react";
 
 import {
   createRequest,
-  RequestType,
-  RequestState,
+  RequestType as RT,
+  RequestStatus as RS,
 } from "@modules/common/requests";
 
 import TodoList from "./TodoList";
@@ -24,7 +24,7 @@ describe("TodoList", () => {
 
   const items: TodoStateItem[] = todos.map(todo => ({
     data: todo,
-    request: createRequest(todo, RequestType.create, RequestState.success),
+    request: createRequest(todo, RT.create, RS.success),
   }));
 
   // Shallow for unit tests

@@ -3,7 +3,7 @@ import { of } from "rxjs";
 import { ajaxGet } from "rxjs/internal-compatibility";
 
 import {
-  RequestState as RS,
+  RequestStatus as RS,
   RequestType as RT,
   matchRequest,
 } from "@modules/common/requests";

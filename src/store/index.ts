@@ -29,8 +29,11 @@ export function createStore() {
     AppState
   >();
 
-  // eslint-disable-next-line prettier/prettier
-  const rootEpic = combineEpics(todoEpics, userEpics);
+  // prettier-ignore
+  const rootEpic = combineEpics(
+    todoEpics,
+    userEpics
+  );
 
   const middleware = [...getDefaultMiddleware(), epicMiddleware];
   if (process.env.NODE_ENV === `development`) {

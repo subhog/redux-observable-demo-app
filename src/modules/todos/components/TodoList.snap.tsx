@@ -24,7 +24,7 @@ exports[`TodoList matches snapshot 1`] = `
               "id": 1,
               "text": "Todo 1",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -48,7 +48,7 @@ exports[`TodoList matches snapshot 1`] = `
               "id": 2,
               "text": "Todo 2",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -72,7 +72,7 @@ exports[`TodoList matches snapshot 1`] = `
               "id": 3,
               "text": "Todo 3",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }

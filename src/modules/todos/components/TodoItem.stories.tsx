@@ -3,11 +3,15 @@ import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 
 import { TodoItem as TodoModel, createTodo } from "@modules/todos/models";
-import { Request, RequestType, RequestState } from "@modules/common/requests";
+import {
+  RequestType as RT,
+  RequestStatus as RS,
+} from "@modules/common/requests";
 
 import { List } from "@material-ui/core";
 
 import TodoItem from "./TodoItem";
+import { TodoStateItem } from "../slice";
 
 export default {
   title: "TodoItem",
@@ -15,42 +19,24 @@ export default {
   decorators: [withKnobs],
 };
 
-const request: Request<TodoModel> = {
-  type: RequestType.read,
-  state: RequestState.success,
-  payload: {
-    text: "Hello World Todo Item",
-    id: 0.23123123123312,
-    completed: true,
+const todo: TodoModel = {
+  text: "Hello World Todo Item",
+  id: 0.23123123123312,
+  completed: true,
+};
+
+const item: TodoStateItem = {
+  data: todo,
+  request: {
+    payload: todo,
+    status: RS.success,
+    type: RT.read,
   },
 };
 
 export const withText = () => (
   <List>
-    <TodoItem
-      onCheckBoxToggle={action("checked")}
-      item={{
-        data: {
-          id: 0.3456,
-          text: "Hello World Todo Item",
-        },
-        request,
-      }}
-    />
-  </List>
-);
-
-export const withEmoji = () => (
-  <List>
-    <TodoItem
-      item={{
-        data: {
-          id: 0.87654321,
-          text: "😀 😎 👍 💯",
-        },
-        request,
-      }}
-    />
+    <TodoItem onCheckBoxToggle={action("checked")} item={item} />
   </List>
 );
 
@@ -58,36 +44,35 @@ export const withRequest = () => {
   const typeSelectKnob = select(
     "Request Type",
     {
-      Create: RequestType.create,
-      Delete: RequestType.delete,
-      Read: RequestType.read,
-      Update: RequestType.update,
+      Create: RT.create,
+      Delete: RT.delete,
+      Read: RT.read,
+      Update: RT.update,
     },
-    RequestType.create
+    RT.create
   );
 
-  const stateSelectKnob = select(
-    "Request State",
+  const statusSelectKnob = select(
+    "Request Status",
     {
-      InProgress: RequestState.inProgress,
-      Success: RequestState.success,
-      Error: RequestState.error,
+      InProgress: RS.inProgress,
+      Success: RS.success,
+      Error: RS.error,
     },
-    RequestState.inProgress
+    RS.inProgress
   );
 
-  const item = createTodo({ text: "Change knob values" });
-
+  const todoKnobs = createTodo({ text: "Change knob values" });
   return (
     <List>
       <TodoItem
         onCheckBoxToggle={action("checked")}
         item={{
-          data: item,
+          data: todoKnobs,
           request: {
             type: typeSelectKnob,
-            state: stateSelectKnob,
-            payload: item,
+            status: statusSelectKnob,
+            payload: todoKnobs,
           },
         }}
       />
