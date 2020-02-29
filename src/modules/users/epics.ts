@@ -2,7 +2,7 @@ import { catchError, map, retry } from "rxjs/operators";
 import { of } from "rxjs";
 
 import {
-  RequestState as RS,
+  RequestStatus as RS,
   RequestType as RT,
   matchRequest,
 } from "@modules/common/requests";

@@ -4,7 +4,7 @@ import React from "react";
 import {
   createRequest,
   RequestType as RT,
-  RequestState as RS,
+  RequestStatus as RS,
 } from "@modules/common/requests";
 
 import UserList from "./UserList";

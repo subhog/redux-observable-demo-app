@@ -22,7 +22,7 @@ const UserListItem: React.FC<Props> = memo(({ item, divider }) => {
     <ListItem divider={divider}>
       <UserText
         primary={`${data.firstName} ${data.lastName}`}
-        secondary={request && `Request ${request.type} ${request.state}`}
+        secondary={request && `Request ${request.type} ${request.status}`}
       />
     </ListItem>
   );

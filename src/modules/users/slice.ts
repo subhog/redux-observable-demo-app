@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
-  RequestState as RS,
+  RequestStatus as RS,
   RequestType as RT,
   createRequest,
   updateRequest,

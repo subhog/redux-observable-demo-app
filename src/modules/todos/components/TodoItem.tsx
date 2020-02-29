@@ -13,7 +13,7 @@ import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import RepeatRounded from "@material-ui/icons/RepeatRounded";
 
 import {
-  RequestState as RS,
+  RequestStatus as RS,
   RequestType as RT,
   matchRequest,
 } from "@modules/common/requests";
@@ -42,7 +42,7 @@ const TodoListItem: React.FC<TodoListItemProps> = memo(
       <TodoText
         primary={item.data.text}
         secondary={
-          item.request && `Request ${item.request.type} ${item.request.state}`
+          item.request && `Request ${item.request.type} ${item.request.status}`
         }
       />
 

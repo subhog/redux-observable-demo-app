@@ -34,7 +34,7 @@ exports[`UserList matches snapshot 1`] = `
               "lastName": "Bradvica",
               "username": "vbradvica",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -60,7 +60,7 @@ exports[`UserList matches snapshot 1`] = `
               "lastName": "Predovan",
               "username": "npredovan",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -86,7 +86,7 @@ exports[`UserList matches snapshot 1`] = `
               "lastName": "Orlik-Grzesik",
               "username": "hubertOG",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -112,7 +112,7 @@ exports[`UserList matches snapshot 1`] = `
               "lastName": "Arlington",
               "username": "marlignton",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
@@ -138,7 +138,7 @@ exports[`UserList matches snapshot 1`] = `
               "lastName": "El-Rahman",
               "username": "selrahman",
             },
-            "state": "success",
+            "status": "success",
             "type": "create",
           },
         }
