@@ -3,7 +3,7 @@ import React from "react";
 import { User as UserModel } from "@modules/users/models";
 import {
   RequestType as RT,
-  RequestState as RS,
+  RequestStatus as RS,
 } from "@modules/common/requests";
 
 import { List } from "@material-ui/core";
@@ -27,7 +27,7 @@ const item: UserStateItem = {
   data: user,
   request: {
     type: RT.read,
-    state: RS.success,
+    status: RS.success,
     payload: user,
   },
 };

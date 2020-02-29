@@ -1,6 +1,6 @@
 import {
   RequestType as RT,
-  RequestState as RS,
+  RequestStatus as RS,
 } from "@modules/common/requests";
 import { slice, initialState } from "./slice";
 
@@ -34,7 +34,7 @@ describe("todo slice", () => {
         // loading.request
         expect(result.loading.request.payload).toBeUndefined();
         expect(result.loading.request.type).toEqual(RT.read);
-        expect(result.loading.request.state).toEqual(RS.inProgress);
+        expect(result.loading.request.status).toEqual(RS.inProgress);
       });
 
       it(actions.loadDone.type, () => {
@@ -63,7 +63,7 @@ describe("todo slice", () => {
         // Assert
         const { loading, entities } = result;
         expect(loading.request.type).toEqual(RT.read);
-        expect(loading.request.state).toEqual(RS.success);
+        expect(loading.request.status).toEqual(RS.success);
         expect(loading.data.length).toEqual(payload.length);
         // entities payload
         expect(Object.values(entities).length).toEqual(payload.length);
@@ -78,7 +78,7 @@ describe("todo slice", () => {
           expect(data.completed).toEqual(item.completed);
           // request
           expect(request.type).toEqual(RT.read);
-          expect(request.state).toEqual(RS.success);
+          expect(request.status).toEqual(RS.success);
         });
       });
 
@@ -90,7 +90,7 @@ describe("todo slice", () => {
 
         // Assert
         expect(result.loading.request.type).toEqual(RT.read);
-        expect(result.loading.request.state).toEqual(RS.error);
+        expect(result.loading.request.status).toEqual(RS.error);
       });
 
       it(actions.loadCancel.type, () => {
@@ -101,7 +101,7 @@ describe("todo slice", () => {
 
         // Assert
         expect(result.loading.request.type).toEqual(RT.read);
-        expect(result.loading.request.state).toEqual(RS.success);
+        expect(result.loading.request.status).toEqual(RS.success);
       });
     });
   });

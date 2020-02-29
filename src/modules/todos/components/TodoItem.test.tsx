@@ -3,8 +3,8 @@ import React from "react";
 
 import {
   createRequest,
-  RequestType,
-  RequestState,
+  RequestType as RT,
+  RequestStatus as RS,
 } from "@modules/common/requests";
 
 import TodoItemComponent from "./TodoItem";
@@ -18,7 +18,7 @@ describe("TodoItem", () => {
   const todoItem: TodoItem = { id: 1, text: "Todo 1", completed: false };
   const item: TodoStateItem = {
     data: todoItem,
-    request: createRequest(todoItem, RequestType.create, RequestState.success),
+    request: createRequest(todoItem, RT.create, RS.success),
   };
 
   // Shallow for unit tests

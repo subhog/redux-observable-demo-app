@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { slice as todo, TodoItem, TodoList, TodoState } from "@modules/todos";
 import { UserList, UsersState } from "@modules/users";
 import {
-  RequestState as RS,
+  RequestStatus as RS,
   RequestType as RT,
   matchRequest as mR,
 } from "@modules/common/requests";
