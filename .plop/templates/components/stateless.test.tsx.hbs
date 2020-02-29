@@ -1,0 +1,15 @@
+import { shallow } from "enzyme";
+import React from "react";
+
+import {{ properCase name }} from "./{{ properCase name }}";
+
+describe("{{ properCase name }}", () => {
+  // Shallow for unit tests
+  const {{ lowerCase name }} = shallow(
+    <{{ properCase name }} />
+  );
+
+  it("matches snapshot", () => {
+    expect({{ lowerCase name }}).toMatchSnapshot();
+  });
+});

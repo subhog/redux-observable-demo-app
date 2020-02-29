@@ -1,0 +1,40 @@
+import React from "react";
+{{#if useTranslations}}
+import { useTranslation } from "react-i18next";
+{{/if}}
+
+{{#if props}}
+export type {{ properCase name }}PropsType = {
+{{#each props}}
+  {{name}}{{#if optional}}?{{/if}}: {{type}};
+{{/each}}
+};
+
+const {{ properCase name }}: React.FC<{{ properCase name }}PropsType> = (
+  {
+    {{#each props}}{{name}},{{/each}}
+  }
+) => {
+{{else}}
+const {{ properCase name }} = () => {
+{{/if}}
+  {{#if useTranslations}}
+  const { t } = useTranslation();
+  {{/if}}
+
+  return (
+    <div>
+      {{#if useTranslations}}
+      {t("{{properCase name}}")}
+      {{else}}
+      {{ properCase name }}
+      {{/if}}
+    </div>
+  );
+};
+
+{{#if useMemo}}
+export default React.memo({{ properCase name }});
+{{else}}
+export default {{ properCase name }};
+{{/if}}

@@ -1,0 +1,21 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import {
+  RequestState,
+  RequestType,
+  createRequest,
+  updateRequest,
+} from "@modules/common/requests";
+
+export interface {{ properCase module }}State {}
+
+export const initialState: {{ properCase module }}State = {};
+
+// State is wrapped with immer produce so it can be mutated but the end result will be immutable
+const slice = createSlice({
+  name: "{{ module }}",
+  initialState,
+  reducers: {},
+});
+
+export { slice };

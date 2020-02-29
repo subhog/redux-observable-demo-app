@@ -19,7 +19,7 @@ import {
 } from "@modules/common/requests";
 import { TodoStateItem } from "../slice";
 
-export interface Props {
+export interface TodoListItemProps {
   item: TodoStateItem;
   divider?: boolean;
   onDeleteButtonClick?: () => void;
@@ -30,7 +30,7 @@ const TodoText = styled(ListItemText)`
   color: #000000;
 `;
 
-const TodoListItem: React.FC<Props> = memo(
+const TodoListItem: React.FC<TodoListItemProps> = memo(
   ({ item, divider, onDeleteButtonClick, onCheckBoxToggle }) => (
     <ListItem divider={divider}>
       {matchRequest(RT.update, RS.inProgress)(item.request) ? (
