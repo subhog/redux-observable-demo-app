@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import { ListItem, ListItemText } from "@material-ui/core";
 
-import { UserStateItem } from "../models";
+import { UserStateItem } from "../slice";
 
 export interface Props {
   item: UserStateItem;

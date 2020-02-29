@@ -1,4 +1,4 @@
-import { Item, StateItem } from "@modules/common/models";
+import { Item } from "@modules/common/models";
 
 export interface UserData {
   firstName: string;
@@ -13,5 +13,3 @@ export const createUser = (data: UserData): User => ({
   id: Math.random(),
   ...data,
 });
-
-export type UserStateItem = StateItem<User, User>;

@@ -17,7 +17,7 @@ import {
   RequestType as RT,
   matchRequest,
 } from "@modules/common/requests";
-import { TodoStateItem } from "../models";
+import { TodoStateItem } from "../slice";
 
 export interface Props {
   item: TodoStateItem;

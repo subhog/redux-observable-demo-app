@@ -1,28 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
-  RequestState,
-  RequestType,
+  RequestState as RS,
+  RequestType as RT,
   createRequest,
   updateRequest,
 } from "@modules/common/requests";
-import { StateItem } from "@modules/common/models";
+import { RequestState, DataState } from "@modules/common/models";
 
-import { User, UserStateItem } from "./models";
+import { User } from "./models";
 
+export type UserStateItem = DataState<User> & RequestState<User>;
 export interface UsersState {
-  loading: StateItem<number[], unknown>;
+  loading: DataState<number[]> & RequestState<unknown>;
   entities: Record<number, UserStateItem>;
 }
 
 export const initialState: UsersState = {
   loading: {
     data: [],
-    request: createRequest(
-      undefined,
-      RequestType.read,
-      RequestState.inProgress
-    ),
+    request: createRequest(undefined, RT.read, RS.inProgress),
   },
   entities: {},
 };
@@ -35,8 +32,8 @@ const slice = createSlice({
     load(state: UsersState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.inProgress,
-        RequestType.read
+        RS.inProgress,
+        RT.read
       );
     },
 
@@ -44,13 +41,13 @@ const slice = createSlice({
       state.loading.data = action.payload.map(item => item.id);
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.success,
-        RequestType.read
+        RS.success,
+        RT.read
       );
       action.payload.forEach(user => {
         state.entities[user.id] = {
           data: user,
-          request: createRequest(user, RequestType.read, RequestState.success),
+          request: createRequest(user, RT.read, RS.success),
         };
       });
     },
@@ -58,16 +55,16 @@ const slice = createSlice({
     loadCancel(state: UsersState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.success,
-        RequestType.read
+        RS.success,
+        RT.read
       );
     },
 
     loadError(state: UsersState) {
       state.loading.request = updateRequest(
         state.loading.request,
-        RequestState.error,
-        RequestType.read
+        RS.error,
+        RT.read
       );
     },
 

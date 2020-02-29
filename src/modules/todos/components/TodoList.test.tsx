@@ -9,7 +9,8 @@ import {
 
 import TodoList from "./TodoList";
 import TodoItemComponent from "./TodoItem";
-import { TodoItem, TodoStateItem } from "../models";
+import { TodoItem } from "../models";
+import { TodoStateItem } from "../slice";
 
 describe("TodoList", () => {
   const onItemDelete = jest.fn();

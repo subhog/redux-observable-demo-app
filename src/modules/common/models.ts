@@ -4,17 +4,10 @@ export interface Item<Id extends string | number> {
   id: Id;
 }
 
-type DataState<Data> = [Data] extends [never]
-  ? never
-  : {
-      data: Data;
-    };
+export type DataState<Data> = {
+  data: Data;
+};
 
-type RequestState<RequestPayload> = [RequestPayload] extends [never]
-  ? never
-  : {
-      request: Request<RequestPayload>;
-    };
-
-export type StateItem<Data, RequestPayload> = DataState<Data> &
-  RequestState<RequestPayload>;
+export type RequestState<RequestPayload> = {
+  request: Request<RequestPayload>;
+};

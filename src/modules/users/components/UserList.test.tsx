@@ -3,13 +3,14 @@ import React from "react";
 
 import {
   createRequest,
-  RequestType,
-  RequestState,
+  RequestType as RT,
+  RequestState as RS,
 } from "@modules/common/requests";
 
 import UserList from "./UserList";
 import UserItemComponent from "./UserItem";
-import { User, UserStateItem } from "../models";
+import { User } from "../models";
+import { UserStateItem } from "../slice";
 
 describe("UserList", () => {
   const todos: User[] = [
@@ -52,7 +53,7 @@ describe("UserList", () => {
 
   const items: UserStateItem[] = todos.map(todo => ({
     data: todo,
-    request: createRequest(todo, RequestType.create, RequestState.success),
+    request: createRequest(todo, RT.create, RS.success),
   }));
 
   // Shallow for unit tests

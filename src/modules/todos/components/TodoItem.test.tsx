@@ -8,7 +8,8 @@ import {
 } from "@modules/common/requests";
 
 import TodoItemComponent from "./TodoItem";
-import { TodoItem, TodoStateItem } from "../models";
+import { TodoItem } from "../models";
+import { TodoStateItem } from "../slice";
 
 describe("TodoItem", () => {
   const onItemDelete = jest.fn();

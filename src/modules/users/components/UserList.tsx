@@ -3,7 +3,7 @@ import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
 import UserListItem from "./UserItem";
-import { UserStateItem } from "../models";
+import { UserStateItem } from "../slice";
 
 export interface Props {
   items: UserStateItem[];

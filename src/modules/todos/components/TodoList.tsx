@@ -2,7 +2,8 @@ import React, { memo } from "react";
 import { List } from "@material-ui/core";
 
 import TodoListItem from "./TodoItem";
-import { TodoItem, TodoStateItem } from "../models";
+import { TodoItem } from "../models";
+import { TodoStateItem } from "../slice";
 
 export interface Props {
   items: TodoStateItem[];

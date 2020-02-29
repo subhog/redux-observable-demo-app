@@ -2,7 +2,6 @@ import { catchError, map, retry } from "rxjs/operators";
 import { of } from "rxjs";
 import { ajax, ajaxGet } from "rxjs/internal-compatibility";
 
-import { TodoStateItem } from "@modules/todos/models";
 import {
   RequestState as RS,
   RequestType as RT,
@@ -11,7 +10,7 @@ import {
 import { feedbackFlag, feedbackArray } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
-import { slice, TodoState } from "./slice";
+import { slice, TodoState, TodoStateItem } from "./slice";
 
 const { actions } = slice;
 
