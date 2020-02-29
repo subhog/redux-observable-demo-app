@@ -1,8 +1,8 @@
 import { Request } from "./requests";
 
-export interface Item<Id extends string | number> {
+export type Item<Id extends string | number> = {
   id: Id;
-}
+};
 
 export type DataState<Data> = {
   data: Data;

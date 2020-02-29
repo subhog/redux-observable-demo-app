@@ -4,12 +4,12 @@ import { ListItem, ListItemText } from "@material-ui/core";
 
 import { UserStateItem } from "../slice";
 
-export interface Props {
+export type Props = {
   item: UserStateItem;
   divider?: boolean;
   onDeleteButtonClick?: () => void;
   onCheckBoxToggle?: () => void;
-}
+};
 
 const UserText = styled(ListItemText)`
   color: #000;

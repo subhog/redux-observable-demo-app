@@ -1,6 +1,5 @@
 import { catchError, map, retry } from "rxjs/operators";
 import { of } from "rxjs";
-import { ajaxGet } from "rxjs/internal-compatibility";
 
 import {
   RequestState as RS,
@@ -10,6 +9,7 @@ import {
 import { feedbackFlag } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
+import * as API from "./api";
 import { slice } from "./slice";
 
 const { actions } = slice;
@@ -20,7 +20,7 @@ const loadEpic: StateEpic<AppState> = state$ =>
     feedbackFlag(
       state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
-        ajaxGet("http://localhost:5000/users").pipe(
+        API.listTodos().pipe(
           retry(3),
           map(request => actions.loadDone(request.response)),
           catchError(() => of(actions.loadError()))

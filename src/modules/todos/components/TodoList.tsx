@@ -5,11 +5,11 @@ import TodoListItem from "./TodoItem";
 import { TodoItem } from "../models";
 import { TodoStateItem } from "../slice";
 
-export interface Props {
+export type Props = {
   items: TodoStateItem[];
   onItemDelete: (item: TodoItem) => void;
   onItemUpdate: (item: TodoItem) => void;
-}
+};
 
 const TodoList: React.FC<Props> = memo(props => (
   <>

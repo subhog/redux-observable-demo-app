@@ -11,10 +11,10 @@ import { DataState, RequestState } from "@modules/common/models";
 import { TodoItem, TodoData, createTodo } from "./models";
 
 export type TodoStateItem = DataState<TodoItem> & RequestState<TodoItem>;
-export interface TodoState {
+export type TodoState = {
   loading: DataState<number[]> & RequestState<undefined>;
   entities: Record<number, TodoStateItem>;
-}
+};
 
 export const initialState: TodoState = {
   loading: {
