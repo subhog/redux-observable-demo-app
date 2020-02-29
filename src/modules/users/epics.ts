@@ -20,7 +20,7 @@ const loadEpic: StateEpic<AppState> = state$ =>
     feedbackFlag(
       state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
-        API.listTodos().pipe(
+        API.listUsers().pipe(
           retry(3),
           map(request => actions.loadDone(request.response)),
           catchError(() => of(actions.loadError()))
