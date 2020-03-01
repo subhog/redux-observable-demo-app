@@ -19,12 +19,12 @@ import {
 } from "@modules/common/requests";
 import { TodoStateItem } from "../slice";
 
-export interface TodoListItemProps {
+export type TodoListItemProps = {
   item: TodoStateItem;
   divider?: boolean;
   onDeleteButtonClick?: () => void;
   onCheckBoxToggle?: () => void;
-}
+};
 
 const TodoText = styled(ListItemText)`
   color: #000000;

@@ -5,9 +5,9 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import UserListItem from "./UserItem";
 import { UserStateItem } from "../slice";
 
-export interface Props {
+export type Props = {
   items: UserStateItem[];
-}
+};
 
 const TodoList: React.FC<Props> = memo(({ items }) => (
   <>

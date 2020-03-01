@@ -11,12 +11,12 @@ export enum RequestType {
   delete = "delete",
 }
 
-export interface Request<Payload = unknown> {
+export type Request<Payload = unknown> = {
   type: RequestType;
   status: RequestStatus;
   payload: Payload;
   error?: Error;
-}
+};
 
 export const matchRequest = (
   type: RequestType,

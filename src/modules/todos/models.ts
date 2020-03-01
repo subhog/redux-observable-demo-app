@@ -1,9 +1,9 @@
 import { Item } from "@modules/common/models";
 
-export interface TodoData {
+export type TodoData = {
   text: string;
   completed?: boolean;
-}
+};
 
 export type TodoItem = TodoData & Item<number>;
 

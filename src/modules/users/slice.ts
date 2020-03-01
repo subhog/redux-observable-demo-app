@@ -11,10 +11,10 @@ import { RequestState, DataState } from "@modules/common/models";
 import { User } from "./models";
 
 export type UserStateItem = DataState<User> & RequestState<User>;
-export interface UsersState {
+export type UsersState = {
   loading: DataState<number[]> & RequestState<unknown>;
   entities: Record<number, UserStateItem>;
-}
+};
 
 export const initialState: UsersState = {
   loading: {
