@@ -9,7 +9,7 @@ import {
 import { feedbackFlag, feedbackArray } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
-import * as API from "./api";
+import * as Api from "./api";
 import { slice, TodoState, TodoStateItem } from "./slice";
 
 const { actions } = slice;
@@ -20,7 +20,7 @@ const loadTodosEpic: StateEpic<AppState> = state$ =>
     feedbackFlag(
       state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
-        API.listTodos().pipe(
+        Api.listTodos().pipe(
           retry(3),
           map(request => actions.loadDone(request.response)),
           catchError(() => of(actions.loadError()))
@@ -37,7 +37,7 @@ const updateTodoEpic: StateEpic<AppState> = state$ =>
           matchRequest(RT.update, RS.inProgress)(entity.request)
         ),
       entity =>
-        API.updateTodo(entity.data.id, entity.data).pipe(
+        Api.updateTodo(entity.data.id, entity.data).pipe(
           retry(3),
           map(() => actions.updateDone(entity.request.payload)),
           catchError(error => of(actions.updateError(entity, error)))
@@ -54,7 +54,7 @@ const addTodoEpic: StateEpic<AppState> = state$ =>
           matchRequest(RT.create, RS.inProgress)(entity.request)
         ),
       entity =>
-        API.createTodo(entity.data).pipe(
+        Api.createTodo(entity.data).pipe(
           map(() => actions.addDone(entity.request.payload)),
           catchError(error => of(actions.addError(entity.data, error)))
         )
@@ -70,7 +70,7 @@ const removeTodoEpic: StateEpic<AppState> = state$ =>
           matchRequest(RT.delete, RS.inProgress)(entity.request)
         ),
       entity =>
-        API.deleteTodo(entity.data.id).pipe(
+        Api.deleteTodo(entity.data.id).pipe(
           map(() => actions.removeDone(entity.data)),
           catchError(error => of(actions.removeError(entity.data, error)))
         )

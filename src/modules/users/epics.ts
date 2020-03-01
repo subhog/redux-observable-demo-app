@@ -9,7 +9,7 @@ import {
 import { feedbackFlag } from "@modules/common/operators";
 import { StateEpic, combineStateEpics } from "@modules/common/epics";
 
-import * as API from "./api";
+import * as Api from "./api";
 import { slice } from "./slice";
 
 const { actions } = slice;
@@ -20,7 +20,7 @@ const loadEpic: StateEpic<AppState> = state$ =>
     feedbackFlag(
       state => matchRequest(RT.read, RS.inProgress)(state.loading.request),
       () =>
-        API.listUsers().pipe(
+        Api.listUsers().pipe(
           retry(3),
           map(request => actions.loadDone(request.response)),
           catchError(() => of(actions.loadError()))
