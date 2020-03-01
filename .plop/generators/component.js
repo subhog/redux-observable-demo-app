@@ -82,9 +82,18 @@ const getActions = plopConfig => data => {
   if (data.exportFromModule) {
     actions.push({
       type: "append",
+      pattern: "// import only components that you wish to export from module",
       unique: true,
       path: `${path}index.ts`,
-      template: 'export { default as {{ properCase name }} } from "./{{ properCase name }}";',
+      template: 'import {{ properCase name }} from "./{{ properCase name }}";',
+      abortOnFail: true,
+    });
+    actions.push({
+      type: "append",
+      pattern: "export {",
+      unique: true,
+      path: `${path}index.ts`,
+      template: "{{ properCase name }},",
       abortOnFail: true,
     });
   }
